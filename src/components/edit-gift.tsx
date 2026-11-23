@@ -41,7 +41,7 @@ export function EditGift({ list, gift }: { list: string; gift: GiftValues }) {
             <input type="hidden" name="list" value={list} />
             <input type="hidden" name="id" value={gift.id} />
             <Button type="submit" variant="red">
-              Echt verwijderen
+              Ja
             </Button>
             <Button variant="ghost" onClick={() => setConfirming(false)}>
               Nee
