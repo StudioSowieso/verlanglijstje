@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-pine: #0b3d2e;
+  --color-pine-deep: #062a1f;
+  --color-pine-soft: #145a43;
+  --color-cream: #fff7e8;
+  --color-paper: #fffdf6;
+  --color-berry: #a81d28;
+  --color-berry-dark: #7f1320;
+  --color-gold: #f0c24b;
+  --color-gold-deep: #b8860b;
+  --color-ink: #1f2a24;
+  --font-display: "Mountains of Christmas", "Comic Sans MS", cursive;
+  --font-sans: "Nunito Variable", system-ui, sans-serif;
+}
+
+html {
+  background: var(--color-pine-deep);
+}
+
+body {
+  min-height: 100dvh;
+  color: var(--color-cream);
+  background:
+    radial-gradient(circle at 15% 0%, rgb(240 194 75 / 0.12), transparent 40%),
+    radial-gradient(circle at 90% 10%, rgb(168 29 40 / 0.25), transparent 45%),
+    linear-gradient(180deg, var(--color-pine) 0%, var(--color-pine-deep) 100%);
+  background-attachment: fixed;
+  font-family: var(--font-sans);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+/* Lichtjesslinger bovenaan */
+.lights {
+  display: flex;
+  justify-content: space-around;
+  height: 28px;
+  overflow: hidden;
+  border-bottom: 2px solid rgb(0 0 0 / 0.35);
+}
+.lights span {
+  width: 12px;
+  height: 18px;
+  margin-top: 6px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: twinkle 2.4s ease-in-out infinite;
+}
+.lights span:nth-child(4n + 1) {
+  background: #e5484d;
+  box-shadow: 0 0 10px #e5484d;
+}
+.lights span:nth-child(4n + 2) {
+  background: var(--color-gold);
+  box-shadow: 0 0 10px var(--color-gold);
+  animation-delay: 0.6s;
+}
+.lights span:nth-child(4n + 3) {
+  background: #3fb37f;
+  box-shadow: 0 0 10px #3fb37f;
+  animation-delay: 1.2s;
+}
+.lights span:nth-child(4n) {
+  background: #5aa9ff;
+  box-shadow: 0 0 10px #5aa9ff;
+  animation-delay: 1.8s;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* Kaarten die een beetje opzij wippen bij hover */
+.gift-card {
+  position: relative;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.gift-card:hover {
+  transform: translateY(-3px) rotate(-0.4deg);
+  box-shadow: 0 14px 30px rgb(0 0 0 / 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lights span {
+    animation: none;
+  }
+  .gift-card,
+  .gift-card:hover {
+    transition: none;
+    transform: none;
+  }
+}
