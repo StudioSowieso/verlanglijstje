@@ -76,11 +76,12 @@ export default async function ListPage({ params }: PageProps<"/[lijst]">) {
           </p>
         </div>
 
-        <p className="max-w-lg text-balance text-center text-lg text-paper/90">
-          {owner
-            ? "Je bekijkt je eigen lijstje. Wat al gekocht is zie je niet, dat blijft een verrassing."
-            : `Dan krijgt ${name} het niet dubbel.`}
-        </p>
+        {owner ? (
+          <p className="max-w-lg text-balance text-center text-lg text-paper/90">
+            Je bekijkt je eigen lijstje. Wat al gekocht is zie je niet, dat
+            blijft een verrassing.
+          </p>
+        ) : null}
       </header>
 
       {owner ? (

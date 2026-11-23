@@ -65,6 +65,12 @@ export function GiftForm({
       if (result.title && !title) setTitle(result.title);
       if (result.price && !price) setPrice(result.price);
       if (result.imageUrl && !imageUrl) setImageUrl(result.imageUrl);
+      if (result.partial) {
+        setMessage(
+          "De winkel geeft geen gegevens vrij. De naam komt uit de link, vul plaatje en prijs zelf in.",
+        );
+        return;
+      }
       setMessage(
         result.title || result.imageUrl
           ? "Gegevens opgehaald, controleer ze even"

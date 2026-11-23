@@ -5,6 +5,8 @@ export type LinkPreview = {
   title?: string;
   imageUrl?: string;
   price?: string;
+  /** true als alleen een titel uit de link zelf is afgeleid */
+  partial?: boolean;
 };
 
 const MAX_BYTES = 800_000;
@@ -187,8 +189,39 @@ function formatPrice(amount?: string, currency?: string) {
   return `${symbol} ${text}`.replace("€  ", "€ ").trim();
 }
 
+function titleFromSlug(url: URL) {
+  const slug = [...url.pathname.split("/").filter(Boolean)]
+    .reverse()
+    .find((part) => /[a-z]{3,}/i.test(part) && !/^\d+$/.test(part));
+  if (!slug) return undefined;
+  let decoded = slug;
+  try {
+    decoded = decodeURIComponent(slug);
+  } catch {
+    // ongeldige codering laten staan
+  }
+  const words = decoded
+    .replace(/\.[a-z0-9]{2,5}$/i, "")
+    .split(/[-_+]+/)
+    .filter(Boolean);
+  if (words.length < 2) return undefined;
+  const text = words.join(" ");
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
 export async function getLinkPreview(rawUrl: string): Promise<LinkPreview> {
-  const { html, finalUrl } = await fetchHtml(new URL(rawUrl));
+  const start = new URL(rawUrl);
+  let page: Awaited<ReturnType<typeof fetchHtml>>;
+  try {
+    page = await fetchHtml(start);
+  } catch (error) {
+    // Sommige winkels weigeren automatische bezoekers. Dan is de naam in
+    // de link vaak nog bruikbaar.
+    const title = titleFromSlug(start);
+    if (title) return { title: title.slice(0, 200), partial: true };
+    throw error;
+  }
+  const { html, finalUrl } = page;
   const meta = readMeta(html);
   const titleTag = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1];
 
