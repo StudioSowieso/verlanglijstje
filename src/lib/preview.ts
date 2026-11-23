@@ -1,5 +1,6 @@
 import { lookup } from "node:dns/promises";
 import { isIP } from "node:net";
+import { bolProductId, getBolProduct, isBolConfigured } from "./bol";
 
 export type LinkPreview = {
   title?: string;
@@ -211,6 +212,26 @@ function titleFromSlug(url: URL) {
 
 export async function getLinkPreview(rawUrl: string): Promise<LinkPreview> {
   const start = new URL(rawUrl);
+
+  const bolId = isBolConfigured() ? bolProductId(start) : undefined;
+  if (bolId) {
+    try {
+      const product = await getBolProduct(bolId);
+      if (product.title) {
+        return {
+          title: product.title.slice(0, 200),
+          imageUrl: product.imageUrl,
+          price: formatPrice(
+            product.price === undefined ? undefined : String(product.price),
+            "EUR",
+          ),
+        };
+      }
+    } catch {
+      // API niet bereikbaar of product niet gevonden: val terug op de link
+    }
+  }
+
   let page: Awaited<ReturnType<typeof fetchHtml>>;
   try {
     page = await fetchHtml(start);
