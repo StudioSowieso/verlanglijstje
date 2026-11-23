@@ -72,7 +72,7 @@ export default async function ListPage({ params }: PageProps<"/[lijst]">) {
             </span>
           </h1>
           <p className="mt-6 text-lg font-semibold text-leaf">
-            Strijk af wat je koopt
+            Streep af wat je koopt
           </p>
         </div>
 

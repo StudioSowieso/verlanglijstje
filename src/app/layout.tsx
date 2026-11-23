@@ -6,7 +6,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Kerst-verlanglijstjes van Sander en Sabien",
-  description: "Kijk wat we graag willen en strijk af wat je koopt.",
+  description: "Bekijk wat we graag willen en streep af wat je koopt.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

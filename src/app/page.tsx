@@ -10,7 +10,7 @@ export default function Home() {
           Kerst-verlanglijstjes
         </h1>
         <p className="max-w-md text-lg text-paper/90">
-          Kies een lijstje, bekijk wat we graag willen en strijk af wat je
+          Kies een lijstje, bekijk wat we graag willen en streep af wat je
           koopt.
         </p>
       </div>
