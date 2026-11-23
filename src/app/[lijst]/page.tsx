@@ -59,7 +59,10 @@ export default async function ListPage({ params }: PageProps<"/[lijst]">) {
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-10 px-4 py-8 sm:px-6">
       <header className="flex flex-col items-center gap-8">
-        <ListSwitch current={lijst} />
+        <div className="relative flex items-center gap-1">
+          <ListSwitch current={lijst} />
+          {owner ? null : <OwnerLogin list={lijst} name={name} />}
+        </div>
 
         <div className="paper tag-arch swing relative w-full max-w-md px-8 pb-12 pt-20 text-center shadow-[0_12px_0_rgb(0_0_0/0.2)]">
           <TagHole />
@@ -94,6 +97,10 @@ export default async function ListPage({ params }: PageProps<"/[lijst]">) {
             <h2 id="toevoegen" className="text-3xl font-extrabold text-red">
               Cadeau toevoegen
             </h2>
+            <Bookmarklet list={lijst} name={name} />
+          </div>
+          <GiftForm list={lijst} />
+          <div className="mt-6 border-t-2 border-ink/10 pt-4">
             <form action={ownerLogout}>
               <input type="hidden" name="list" value={lijst} />
               <Button type="submit" variant="ghost">
@@ -101,16 +108,8 @@ export default async function ListPage({ params }: PageProps<"/[lijst]">) {
               </Button>
             </form>
           </div>
-          <GiftForm list={lijst} />
-          <div className="mt-4">
-            <Bookmarklet list={lijst} name={name} />
-          </div>
         </section>
-      ) : (
-        <div className="flex justify-center">
-          <OwnerLogin list={lijst} name={name} />
-        </div>
-      )}
+      ) : null}
 
       <section aria-label={`Cadeaus voor ${name}`}>
         {items.length === 0 ? (

@@ -57,6 +57,22 @@ export function Sparkle({
   );
 }
 
+// Een dennentakje: rechte steel met naaldparen die schuin naar de punt wijzen
+// en kleiner worden richting het uiteinde.
+const NEEDLE_PAIRS = Array.from({ length: 19 }, (_, i) => {
+  const t = i / 18;
+  return {
+    x: 24 + i * 9.8,
+    length: 36 - t * 20,
+    angle: 40 - t * 6,
+  };
+});
+
+function needle(length: number) {
+  const w = length * 0.13;
+  return `M0 0 C${length * 0.25} ${-w} ${length * 0.7} ${-w * 0.9} ${length} 0 C${length * 0.7} ${w * 0.9} ${length * 0.25} ${w} 0 0Z`;
+}
+
 export function PineBranch({
   className,
   width = 260,
@@ -64,48 +80,36 @@ export function PineBranch({
   className?: string;
   width?: number;
 }) {
-  const leaves = Array.from({ length: 10 }, (_, i) => i);
   return (
     <svg
-      viewBox="0 0 220 90"
+      viewBox="0 0 230 90"
       width={width}
-      height={(width * 90) / 220}
+      height={(width * 90) / 230}
       aria-hidden="true"
       className={className}
     >
+      {NEEDLE_PAIRS.map((n, i) => (
+        <g key={n.x} transform={`translate(${n.x} 45)`}>
+          <path
+            d={needle(n.length)}
+            fill={i % 2 === 0 ? "#2f6b3a" : "#3f8049"}
+            transform={`rotate(${n.angle})`}
+          />
+          <path
+            d={needle(n.length)}
+            fill={i % 2 === 0 ? "#3f8049" : "#2f6b3a"}
+            transform={`rotate(${-n.angle})`}
+          />
+        </g>
+      ))}
+      <path d={needle(20)} fill="#3f8049" transform="translate(206 45)" />
       <path
-        d="M4 46 C60 40 130 50 214 44"
+        d="M6 45 L210 45"
         stroke="#b3a553"
-        strokeWidth="3.5"
+        strokeWidth="3"
         strokeLinecap="round"
         fill="none"
       />
-      {leaves.map((i) => {
-        const x = 20 + i * 19;
-        const y = 46 - Math.sin(i / 3) * 1.5;
-        const scale = 1.15 - i * 0.07;
-        const fill = i % 2 === 0 ? "#2f6b3a" : "#3f8049";
-        return (
-          <g key={i} transform={`translate(${x} ${y}) scale(${scale})`}>
-            <ellipse
-              cx="0"
-              cy="-17"
-              rx="5.5"
-              ry="17"
-              fill={fill}
-              transform="rotate(48)"
-            />
-            <ellipse
-              cx="0"
-              cy="-17"
-              rx="5.5"
-              ry="17"
-              fill={fill}
-              transform="rotate(-48)"
-            />
-          </g>
-        );
-      })}
     </svg>
   );
 }

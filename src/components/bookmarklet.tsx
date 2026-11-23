@@ -43,11 +43,11 @@ export function Bookmarklet({ list, name }: { list: string; name: string }) {
   }, [list]);
 
   return (
-    <details className="rounded-xl border-2 border-ink/20 bg-white/50 p-3 text-ink">
-      <summary className="flex min-h-11 cursor-pointer items-center gap-2 font-bold">
-        <Bookmark size={16} aria-hidden="true" /> Bladwijzer voor je computer
+    <details className="group relative text-ink">
+      <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 rounded-full border-2 border-ink/30 px-4 font-bold hover:bg-ink/5 group-open:bg-ink/5 [&::-webkit-details-marker]:hidden">
+        <Bookmark size={16} aria-hidden="true" /> Bladwijzer
       </summary>
-      <div className="flex flex-col gap-3 pt-2 text-base">
+      <div className="paper absolute right-0 top-full z-20 mt-2 flex w-[min(24rem,calc(100vw-3rem))] flex-col gap-3 rounded-2xl border-2 border-ink/20 p-4 text-base shadow-[0_8px_0_rgb(0_0_0/0.2)]">
         <p>
           Sommige winkels, zoals bol.com, laten ons de pagina niet ophalen. Met
           deze bladwijzer lees je de pagina zelf uit, in je eigen browser.
