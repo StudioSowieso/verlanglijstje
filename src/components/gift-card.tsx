@@ -1,5 +1,6 @@
 import { ExternalLink, Gift as GiftIcon } from "lucide-react";
 import { ClaimForm } from "./claim-form";
+import { TagHole } from "./decor";
 import { EditGift } from "./edit-gift";
 import { cn } from "./ui";
 
@@ -28,15 +29,13 @@ export function GiftCard({
   return (
     <li
       className={cn(
-        "gift-card flex flex-col overflow-hidden rounded-2xl bg-paper text-ink shadow-lg",
-        dimmed && "opacity-80",
+        "paper relative mt-12 flex flex-col gap-4 rounded-b-3xl rounded-t-[2.75rem] px-4 pb-4 pt-12 shadow-[0_10px_0_rgb(0_0_0/0.18)]",
+        dimmed && "opacity-85",
       )}
     >
-      <div className="relative flex aspect-[4/3] items-center justify-center bg-cream">
-        <span
-          aria-hidden="true"
-          className="absolute inset-y-0 left-1/2 w-3.5 -translate-x-1/2 bg-berry/90"
-        />
+      <TagHole />
+
+      <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl bg-white/60">
         {gift.imageUrl ? (
           // biome-ignore lint/performance/noImgElement: externe webshop-plaatjes, domeinen onbekend
           <img
@@ -45,36 +44,34 @@ export function GiftCard({
             loading="lazy"
             referrerPolicy="no-referrer"
             className={cn(
-              "relative h-full w-full object-contain p-2",
+              "h-full w-full object-contain p-2",
               dimmed && "grayscale",
             )}
           />
         ) : (
-          <GiftIcon
-            size={56}
-            className="relative text-berry"
-            aria-hidden="true"
-          />
+          <GiftIcon size={52} className="text-sprig" aria-hidden="true" />
         )}
         {gift.price ? (
-          <span className="absolute right-3 top-3 z-10 rounded-full bg-gold px-3 py-1 text-sm font-bold text-ink shadow">
+          <span className="absolute right-2 top-2 rounded-full bg-red px-3 py-1 text-sm font-bold text-paper shadow-[2px_2px_0_var(--color-pink)]">
             {gift.price}
           </span>
         ) : null}
       </div>
 
-      <div className="relative z-10 flex flex-1 flex-col gap-3 bg-paper p-4">
+      <div className="flex flex-1 flex-col gap-3">
         <h3
           className={cn(
-            "font-display text-2xl font-bold leading-tight",
-            dimmed && "line-through decoration-berry decoration-2",
+            "text-2xl font-extrabold leading-tight tracking-tight",
+            dimmed && "line-through decoration-red decoration-[3px]",
           )}
         >
           {gift.title}
         </h3>
 
         {gift.note ? (
-          <p className="whitespace-pre-line text-sm text-ink/85">{gift.note}</p>
+          <p className="whitespace-pre-line text-base text-ink/85">
+            {gift.note}
+          </p>
         ) : null}
 
         {gift.url ? (
@@ -82,7 +79,7 @@ export function GiftCard({
             href={gift.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-11 w-fit items-center gap-2 text-sm font-bold text-berry underline underline-offset-4 hover:text-berry-dark"
+            className="inline-flex min-h-11 w-fit items-center gap-2 text-base font-bold text-red underline underline-offset-4 hover:text-red-deep"
           >
             <ExternalLink size={16} aria-hidden="true" /> Bekijk in de winkel
             <span className="sr-only"> (opent in een nieuw tabblad)</span>

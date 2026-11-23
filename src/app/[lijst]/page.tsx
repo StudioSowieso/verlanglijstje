@@ -3,6 +3,7 @@ import { LogOut } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ownerLogout } from "@/app/actions";
+import { Sparkle, Starburst, TagHole } from "@/components/decor";
 import { GiftCard, type GiftView } from "@/components/gift-card";
 import { GiftForm } from "@/components/gift-form";
 import { ListSwitch } from "@/components/list-switch";
@@ -55,34 +56,45 @@ export default async function ListPage({ params }: PageProps<"/[lijst]">) {
   const items = await getGifts(lijst, owner);
 
   return (
-    <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-8 px-4 py-8 sm:px-6">
-      <header className="flex flex-col items-center gap-4 text-center">
+    <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-10 px-4 py-8 sm:px-6">
+      <header className="flex flex-col items-center gap-8">
         <ListSwitch current={lijst} />
-        <h1 className="font-display text-5xl font-bold text-gold sm:text-6xl">
-          Verlanglijstje van {name}
-        </h1>
-        <p className="max-w-xl text-lg text-cream/90">
+
+        <div className="paper tag-arch swing relative w-full max-w-md px-8 pb-12 pt-20 text-center shadow-[0_12px_0_rgb(0_0_0/0.2)]">
+          <TagHole />
+          <Starburst size={92} className="absolute -right-6 -top-6" />
+          <Sparkle size={26} className="absolute bottom-8 left-8" />
+          <Sparkle size={20} className="absolute bottom-14 right-10" />
+          <h1 className="flex flex-col items-center gap-3">
+            <span className="text-xl font-semibold">Verlanglijstje van</span>
+            <span className="extrude text-[clamp(3.5rem,17vw,6.5rem)] font-extrabold uppercase leading-none">
+              {name}
+            </span>
+          </h1>
+          <p className="mt-6 text-lg font-semibold text-leaf">
+            Strijk af wat je koopt
+          </p>
+        </div>
+
+        <p className="max-w-lg text-balance text-center text-lg text-paper/90">
           {owner
             ? "Je bekijkt je eigen lijstje. Wat al gekocht is zie je niet, dat blijft een verrassing."
-            : `Strijk af wat je voor ${name} koopt, dan krijgt ${name} het niet dubbel.`}
+            : `Dan krijgt ${name} het niet dubbel.`}
         </p>
       </header>
 
       {owner ? (
         <section
           aria-labelledby="toevoegen"
-          className="mx-auto w-full max-w-2xl rounded-3xl bg-paper p-5 shadow-xl"
+          className="paper mx-auto w-full max-w-2xl rounded-3xl p-5 shadow-[0_10px_0_rgb(0_0_0/0.18)] sm:p-6"
         >
-          <div className="mb-4 flex items-center justify-between gap-3">
-            <h2
-              id="toevoegen"
-              className="font-display text-3xl font-bold text-berry"
-            >
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <h2 id="toevoegen" className="text-3xl font-extrabold text-red">
               Cadeau toevoegen
             </h2>
             <form action={ownerLogout}>
               <input type="hidden" name="list" value={lijst} />
-              <Button type="submit" variant="ghost" className="text-ink">
+              <Button type="submit" variant="ghost">
                 <LogOut size={16} aria-hidden="true" /> Klaar met bewerken
               </Button>
             </form>
@@ -97,13 +109,13 @@ export default async function ListPage({ params }: PageProps<"/[lijst]">) {
 
       <section aria-label={`Cadeaus voor ${name}`}>
         {items.length === 0 ? (
-          <p className="mx-auto max-w-md rounded-2xl bg-pine-soft/60 p-6 text-center text-lg">
+          <p className="mx-auto max-w-md rounded-2xl bg-forest-deep/70 p-6 text-center text-lg">
             {owner
               ? "Nog niks op je lijstje. Plak hierboven een link om te beginnen."
               : `${name} heeft nog niks op het lijstje gezet.`}
           </p>
         ) : (
-          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid gap-x-6 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((gift) => (
               <GiftCard key={gift.id} gift={gift} list={lijst} owner={owner} />
             ))}

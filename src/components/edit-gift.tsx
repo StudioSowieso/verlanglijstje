@@ -23,14 +23,13 @@ export function EditGift({ list, gift }: { list: string; gift: GiftValues }) {
   return (
     <div className="flex flex-col gap-3">
       {editing ? (
-        <div className="rounded-xl border border-pine/20 bg-cream p-3">
+        <div className="rounded-xl border-2 border-ink/20 bg-white/50 p-3">
           <GiftForm list={list} gift={gift} onDone={done} />
         </div>
       ) : null}
       <div className="flex flex-wrap gap-2">
         <Button
           variant="ghost"
-          className="text-ink"
           onClick={() => setEditing((v) => !v)}
           aria-expanded={editing}
         >
@@ -41,14 +40,10 @@ export function EditGift({ list, gift }: { list: string; gift: GiftValues }) {
           <form action={deleteGift} className="flex gap-2">
             <input type="hidden" name="list" value={list} />
             <input type="hidden" name="id" value={gift.id} />
-            <Button type="submit" variant="berry">
+            <Button type="submit" variant="red">
               Echt verwijderen
             </Button>
-            <Button
-              variant="ghost"
-              className="text-ink"
-              onClick={() => setConfirming(false)}
-            >
+            <Button variant="ghost" onClick={() => setConfirming(false)}>
               Nee
             </Button>
           </form>

@@ -8,17 +8,16 @@ export function cn(...parts: (string | false | null | undefined)[]) {
   return parts.filter(Boolean).join(" ");
 }
 
-type Variant = "gold" | "berry" | "ghost" | "danger";
+type Variant = "red" | "ghost" | "danger";
 
 const variants: Record<Variant, string> = {
-  gold: "bg-gold text-ink hover:bg-[#f6d374] border-gold-deep",
-  berry: "bg-berry text-cream hover:bg-berry-dark border-berry-dark",
-  ghost: "bg-transparent text-current hover:bg-black/10 border-current/40",
-  danger: "bg-transparent text-berry hover:bg-berry/10 border-berry/50",
+  red: "border-red-deep bg-red text-paper shadow-[3px_3px_0_var(--color-pink)] hover:bg-red-deep active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0_var(--color-pink)]",
+  ghost: "border-ink/70 bg-transparent text-ink hover:bg-ink/10",
+  danger: "border-red bg-transparent text-red hover:bg-red/10",
 };
 
 export function Button({
-  variant = "gold",
+  variant = "red",
   className,
   ...props
 }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: Variant }) {
@@ -27,7 +26,7 @@ export function Button({
       type="button"
       {...props}
       className={cn(
-        "inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-5 py-2 text-sm font-bold transition-colors disabled:cursor-not-allowed disabled:opacity-60",
+        "inline-flex min-h-11 items-center justify-center gap-2 rounded-full border-2 px-5 py-2 text-sm font-bold transition-[background-color,transform,box-shadow] disabled:cursor-not-allowed disabled:opacity-60",
         variants[variant],
         className,
       )}
@@ -36,7 +35,7 @@ export function Button({
 }
 
 const fieldClass =
-  "w-full rounded-xl border-2 border-pine/25 bg-white px-3 py-2 text-base text-ink placeholder:text-ink/55 focus:border-berry";
+  "w-full rounded-xl border-2 border-ink/40 bg-white/70 px-3 py-2 text-base text-ink placeholder:text-ink/70 focus:border-red";
 
 export function Input({
   className,

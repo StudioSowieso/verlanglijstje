@@ -101,14 +101,14 @@ export function GiftForm({
             variant="ghost"
             onClick={() => loadPreview(url.trim())}
             disabled={fetching}
-            className="shrink-0 text-ink"
+            className="shrink-0"
           >
             <Wand2 size={16} aria-hidden="true" />
             {fetching ? "Ophalen…" : "Ophalen"}
           </Button>
         </div>
       </Field>
-      <p className="text-sm text-ink/80" aria-live="polite">
+      <p className="text-sm text-ink/85" aria-live="polite">
         {message || "Plak een link, dan halen we titel, plaatje en prijs op."}
       </p>
 
@@ -164,18 +164,18 @@ export function GiftForm({
       </Field>
 
       {state.error ? (
-        <p role="alert" className="text-sm font-bold text-berry">
+        <p role="alert" className="text-sm font-bold text-red">
           {state.error}
         </p>
       ) : null}
       {state.ok ? (
-        <output className="block text-sm font-bold text-pine">
+        <output className="block text-sm font-bold text-leaf">
           Opgeslagen
         </output>
       ) : null}
 
       <div>
-        <Button type="submit" variant="berry" disabled={pending}>
+        <Button type="submit" variant="red" disabled={pending}>
           {editing ? (
             <Save size={16} aria-hidden="true" />
           ) : (

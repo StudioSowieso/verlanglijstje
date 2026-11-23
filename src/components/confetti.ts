@@ -6,7 +6,7 @@ export async function fireConfetti() {
     spread: 85,
     startVelocity: 38,
     position: { x: 50, y: 65 },
-    colors: ["#e5484d", "#f0c24b", "#3fb37f", "#ffffff", "#5aa9ff"],
+    colors: ["#c8202f", "#f47fae", "#f4ece0", "#d7ad62", "#4f8f58"],
     zIndex: 100,
   });
 }

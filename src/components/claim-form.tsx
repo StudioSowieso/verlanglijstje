@@ -26,13 +26,13 @@ export function ClaimForm({
   if (claimed) {
     return (
       <div className="flex flex-col gap-2">
-        <p className="rounded-xl bg-pine/10 px-3 py-2 text-sm font-bold text-pine">
+        <p className="rounded-xl bg-leaf/15 px-3 py-2 text-base font-bold text-leaf">
           Al gekocht{claimedBy ? ` door ${claimedBy}` : ""}
         </p>
         <form action={unclaimGift}>
           <input type="hidden" name="list" value={list} />
           <input type="hidden" name="id" value={id} />
-          <Button type="submit" variant="ghost" className="w-full text-ink">
+          <Button type="submit" variant="ghost" className="w-full">
             <Undo2 size={16} aria-hidden="true" /> Toch niet
           </Button>
         </form>
@@ -54,12 +54,12 @@ export function ClaimForm({
         maxLength={60}
         autoComplete="off"
       />
-      <Button type="submit" variant="berry" disabled={pending}>
+      <Button type="submit" variant="red" disabled={pending}>
         <Gift size={16} aria-hidden="true" />
         {pending ? "Even geduld…" : "Ik koop dit"}
       </Button>
       {state.error ? (
-        <p role="alert" className="text-sm font-bold text-berry">
+        <p role="alert" className="text-sm font-bold text-red">
           {state.error}
         </p>
       ) : null}
