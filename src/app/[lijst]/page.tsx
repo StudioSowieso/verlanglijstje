@@ -3,6 +3,7 @@ import { LogOut } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ownerLogout } from "@/app/actions";
+import { Bookmarklet } from "@/components/bookmarklet";
 import { Sparkle, Starburst, TagHole } from "@/components/decor";
 import { GiftCard, type GiftView } from "@/components/gift-card";
 import { GiftForm } from "@/components/gift-form";
@@ -101,6 +102,9 @@ export default async function ListPage({ params }: PageProps<"/[lijst]">) {
             </form>
           </div>
           <GiftForm list={lijst} />
+          <div className="mt-4">
+            <Bookmarklet list={lijst} name={name} />
+          </div>
         </section>
       ) : (
         <div className="flex justify-center">

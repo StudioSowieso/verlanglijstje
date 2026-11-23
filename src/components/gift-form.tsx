@@ -17,10 +17,13 @@ type GiftValues = {
 export function GiftForm({
   list,
   gift,
+  initial,
   onDone,
 }: {
   list: string;
   gift?: GiftValues;
+  /** Voorinvulling voor een nieuw cadeau (bijvoorbeeld via de bladwijzer) */
+  initial?: Partial<Pick<GiftValues, "url" | "title" | "imageUrl" | "price">>;
   onDone?: () => void;
 }) {
   const editing = Boolean(gift);
@@ -28,10 +31,12 @@ export function GiftForm({
     editing ? updateGift : addGift,
     {},
   );
-  const [url, setUrl] = useState(gift?.url ?? "");
-  const [title, setTitle] = useState(gift?.title ?? "");
-  const [price, setPrice] = useState(gift?.price ?? "");
-  const [imageUrl, setImageUrl] = useState(gift?.imageUrl ?? "");
+  const [url, setUrl] = useState(gift?.url ?? initial?.url ?? "");
+  const [title, setTitle] = useState(gift?.title ?? initial?.title ?? "");
+  const [price, setPrice] = useState(gift?.price ?? initial?.price ?? "");
+  const [imageUrl, setImageUrl] = useState(
+    gift?.imageUrl ?? initial?.imageUrl ?? "",
+  );
   const [note, setNote] = useState(gift?.note ?? "");
   const [message, setMessage] = useState("");
   const [fetching, startFetch] = useTransition();

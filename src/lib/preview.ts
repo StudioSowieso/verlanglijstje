@@ -176,7 +176,7 @@ function walkForOffer(
   return undefined;
 }
 
-function formatPrice(amount?: string, currency?: string) {
+export function formatPrice(amount?: string, currency?: string) {
   if (!amount) return undefined;
   const number = Number(amount.replace(",", "."));
   const text = Number.isFinite(number)
