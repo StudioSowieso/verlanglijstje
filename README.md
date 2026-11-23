@@ -15,7 +15,6 @@ Lucide, Biome. Draait op Vercel.
 | `DATABASE_URL` | Neon connection string (ook nodig tijdens de build) |
 | `SANDER_PIN` | Code om Sanders lijstje aan te passen |
 | `SABIEN_PIN` | Code om Sabiens lijstje aan te passen |
-| `BOL_CLIENT_ID` / `BOL_CLIENT_SECRET` | Optioneel. Voor bol.com-links: titel, plaatje en prijs via de bol Marketing Catalog API. Zonder deze twee valt de tool terug op de naam uit de link. |
 
 Zie `.env.example`. Zet ze lokaal in `.env.local` en in Vercel onder
 Settings > Environment Variables. Kies zelf lange codes: iedereen die de link
